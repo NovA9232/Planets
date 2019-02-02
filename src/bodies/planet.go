@@ -13,6 +13,12 @@ type Planet struct {
 	body *phy.Body
 }
 
+func NewPlanet(id int, x, y int, r, d float32) {
+	p := new(Planet)
+	p.Init(id, x, y, r, d)
+	ListOfBods = append(ListOfBods, p)
+}
+
 func (p *Planet) Init(id int, x, y int, r, d float32) {
 	p.id = id
 	p.body = phy.NewBodyCircle(rl.NewVector2(float32(x), float32(y)), r, d)
@@ -20,10 +26,9 @@ func (p *Planet) Init(id int, x, y int, r, d float32) {
 	p.d = d
 }
 
-func (p *Planet) setForce(fx, fy float32) {
-	dx, dy := fx - p.currForce.X, fy - p.currForce.Y
-	p.currForce = rl.NewVector2(fx, fy)
-	p.body.AddForce(rl.NewVector2(dx, dy)) // Physac is retarded
+func (p *Planet) SetForce(fx, fy float32) {
+	dx, dy := fx-p.currForce.X, fy-p.currForce.Y
+	p.body.AddForce(rl.NewVector2(dx, dy))
 }
 
 func (p *Planet) getBody() *phy.Body {
