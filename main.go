@@ -52,8 +52,12 @@ func checkInputs(mouseDown *bool, startMX, startMY, endMX, endMY *int32) {
 		*endMX, *endMY = rl.GetMouseX(), rl.GetMouseY()
 		println(*endMX-*startMX, *endMY-*startMY)
 		if rl.IsMouseButtonReleased(0) {
-			planet.Planets = append(planet.Planets, planet.NewPlanet(len(planet.Planets), float64(*startMX), float64(*startMY), float64(*startMX-*endMX), float64(*startMY-*endMY), 5))
+			planet.Planets = append(planet.Planets, planet.NewPlanet(len(planet.Planets), float64(*startMX), float64(*startMY), float64(*startMX-*endMX), float64(*startMY-*endMY), 10))
 		}
+	}
+
+	if rl.IsMouseButtonPressed(1) {
+		makeSqr(float64(rl.GetMouseX()), float64(rl.GetMouseY()), 3, 20, 20)
 	}
 
 	if rl.IsKeyPressed(rl.KeyP) {
@@ -61,6 +65,13 @@ func checkInputs(mouseDown *bool, startMX, startMY, endMX, endMY *int32) {
 	}
 	if rl.IsKeyPressed(rl.KeyR) {
 		reset()
+	}
+
+	if rl.IsKeyPressed(rl.KeyV) {
+		planet.DEBUG_V = !planet.DEBUG_V
+	}
+	if rl.IsKeyPressed(rl.KeyF) {
+		planet.DEBUG_F = !planet.DEBUG_F
 	}
 }
 

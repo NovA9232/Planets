@@ -7,14 +7,17 @@ import (
 
 const (
 	//G float64 = 0.0000000000667
-	G float64 = 0.000667
-	PL_DENSITY float64 = 5514
-	PL_FRICTION float64 = 0
+	G float64 = 0.1
+	PL_DENSITY float64 = 10
+	PL_FRICTION float64 = 0.4
 )
 
 var (
 	World *box2d.World
 	Planets []*Planet
+
+	DEBUG_V bool = true
+	DEBUG_F bool = true
 )
 
 type Planet struct {
@@ -60,4 +63,12 @@ func (self *Planet) Update() {
 
 func (self *Planet) Draw() {
 	rl.DrawCircleLines(int32(self.Body.Position.X), int32(self.Body.Position.Y), float32(self.Rad), rl.RayWhite)
+
+	if DEBUG_V {
+		self.debugVel()
+	}
+
+	if DEBUG_F {
+		self.debugForce()
+	}
 }
